@@ -9,14 +9,23 @@ from app.application.usecases.list_feed import ListFeedUseCase
 from app.application.usecases.list_users_with_posts import ListUsersWithPostsUseCase
 from app.infrastructure.db.session import get_session
 from sqlalchemy.orm import Session
-
+from fastapi import HTTPException
 api_router = APIRouter()
 
 @api_router.post("/users", response_model=UserCreatedDTO, status_code=201)
 def create_user(payload: UserCreateDTO, session: Session = Depends(get_session)):
     uc = CreateUserUseCase(session)
-    user = uc.execute(payload)
-    return user
+    try:
+        return uc.execute(payload)
+    except ValueError as e:
+        err = str(e)
+        if err == "duplicate_email":
+            raise HTTPException(status_code=409, detail="Email already exists")
+        if err == "duplicate_username":
+            raise HTTPException(status_code=409, detail="Username already exists")
+        if err == "duplicate_user":
+            raise HTTPException(status_code=409, detail="User already exists")
+        raise
 
 @api_router.post("/posts", response_model=PostDTO, status_code=201)
 def create_post(payload: PostCreateDTO, session: Session = Depends(get_session)):
