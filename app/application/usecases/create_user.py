@@ -7,5 +7,5 @@ class CreateUserUseCase:
         self.repo = SqlAlchemyUserRepository(session)
 
     def execute(self, dto: UserCreateDTO) -> UserCreatedDTO:
-        data = self.repo.create(username=dto.username, email=dto.email, posts_count=dto.posts or 0)
+        data = self.repo.create(username=dto.username, email=str(dto.email), posts_count=dto.posts or 0)
         return UserCreatedDTO(id=data["id"], username=data["username"])
