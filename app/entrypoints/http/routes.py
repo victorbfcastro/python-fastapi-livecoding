@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, Query
-from typing import List
-from app.dtos.user_dtos import UserCreateDTO, UserCreatedDTO, UserWithPostsDTO, UsersWithPostsPageDTO
+from fastapi import APIRouter, Depends, Query
+from app.dtos.user_dtos import UserCreateDTO, UserCreatedDTO, UsersWithPostsPageDTO
 from app.dtos.post_dtos import PostCreateDTO, PostDTO, FeedPageDTO
 from app.application.usecases.create_user import CreateUserUseCase
 from app.application.usecases.create_post import CreatePostUseCase
