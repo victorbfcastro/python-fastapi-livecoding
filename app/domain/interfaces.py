@@ -1,5 +1,4 @@
-from typing import Protocol, Sequence, Optional
-from datetime import datetime
+from typing import Protocol, Optional
 
 class UserRepository(Protocol):
     def create(self, username: str, email: str, posts_count: int) -> dict: ...

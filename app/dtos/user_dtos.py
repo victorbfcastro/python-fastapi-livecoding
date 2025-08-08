@@ -13,9 +13,9 @@ class UserWithPostsDTO(BaseModel):
     id: int
     username: str
     posts_count: int
-    posts: list["PostDTO"] = []  # forward ref
+    posts: list["PostDTO"] = []
 
-from app.dtos.post_dtos import PostDTO  # noqa
+from app.dtos.post_dtos import PostDTO
 
 class UsersWithPostsPageDTO(BaseModel):
     page: int
