@@ -9,7 +9,6 @@ class SqlAlchemyPostRepository:
         self.session = session
 
     def create(self, user_id: int, content: str) -> dict:
-        # Ensure user exists and increment posts_count
         user = self.session.get(UserORM, user_id)
         if not user:
             raise ValueError("User not found")
